@@ -1,380 +1,232 @@
-local Players=game:GetService("Players")
-local UIS=game:GetService("UserInputService")
-local LP=Players.LocalPlayer
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local UIS = game:GetService("UserInputService")
+local player = Players.LocalPlayer
 
-local KEY="kairon-script"
-local DISCORD="https://discord.gg/nBBu9eRSws"
+local KEY = "kairon-script"
+local DISCORD = "https://discord.gg/nBBu9eRSws"
 
-local gui=Instance.new("ScreenGui",LP:WaitForChild("PlayerGui"))
-gui.Name="RivoHub"
-gui.ResetOnSpawn=false
+local gui = Instance.new("ScreenGui")
+gui.Name = "RivoHub"
+gui.ResetOnSpawn = false
+gui.Parent = game:GetService("CoreGui")
 
-local main=Instance.new("Frame",gui)
-main.Size=UDim2.fromOffset(680,440)
-main.Position=UDim2.fromScale(.5,.5)
-main.AnchorPoint=Vector2.new(.5,.5)
-main.BackgroundColor3=Color3.fromRGB(17,17,23)
-main.BorderSizePixel=0
+local main = Instance.new("Frame")
+main.Size = UDim2.fromOffset(520, 330)
+main.Position = UDim2.new(0.5, -260, 0.5, -165)
+main.BackgroundColor3 = Color3.fromRGB(18, 18, 24)
+main.BorderSizePixel = 0
+main.Parent = gui
 
-Instance.new("UICorner",main).CornerRadius=UDim.new(0,12)
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 14)
+corner.Parent = main
 
-local stroke=Instance.new("UIStroke",main)
-stroke.Color=Color3.fromRGB(55,55,70)
+local stroke = Instance.new("UIStroke")
+stroke.Color = Color3.fromRGB(85, 85, 110)
+stroke.Thickness = 1
+stroke.Parent = main
 
-local top=Instance.new("Frame",main)
-top.Size=UDim2.new(1,0,0,58)
-top.BackgroundColor3=Color3.fromRGB(23,23,31)
-top.BorderSizePixel=0
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, -30, 0, 45)
+title.Position = UDim2.fromOffset(15, 12)
+title.BackgroundTransparency = 1
+title.Text = "Rivo Hub"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextSize = 28
+title.Font = Enum.Font.GothamBold
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Parent = main
 
-Instance.new("UICorner",top).CornerRadius=UDim.new(0,12)
+local subtitle = Instance.new("TextLabel")
+subtitle.Size = UDim2.new(1, -30, 0, 30)
+subtitle.Position = UDim2.fromOffset(15, 55)
+subtitle.BackgroundTransparency = 1
+subtitle.Text = "Brookhaven • Key System"
+subtitle.TextColor3 = Color3.fromRGB(160, 160, 175)
+subtitle.TextSize = 15
+subtitle.Font = Enum.Font.Gotham
+subtitle.TextXAlignment = Enum.TextXAlignment.Left
+subtitle.Parent = main
 
-local title=Instance.new("TextLabel",top)
-title.Size=UDim2.new(1,-30,1,0)
-title.Position=UDim2.fromOffset(15,0)
-title.BackgroundTransparency=1
-title.Text="RIVO HUB"
-title.Font=Enum.Font.GothamBold
-title.TextSize=21
-title.TextColor3=Color3.new(1,1,1)
-title.TextXAlignment=Enum.TextXAlignment.Left
+local info = Instance.new("TextLabel")
+info.Size = UDim2.new(1, -50, 0, 55)
+info.Position = UDim2.fromOffset(25, 95)
+info.BackgroundTransparency = 1
+info.Text = "Join the Rivo Hub Discord to get access to the key."
+info.TextColor3 = Color3.fromRGB(210, 210, 220)
+info.TextSize = 16
+info.Font = Enum.Font.Gotham
+info.TextWrapped = true
+info.Parent = main
 
-local keyFrame=Instance.new("Frame",main)
-keyFrame.Size=UDim2.fromOffset(410,250)
-keyFrame.Position=UDim2.fromScale(.5,.5)
-keyFrame.AnchorPoint=Vector2.new(.5,.5)
-keyFrame.BackgroundColor3=Color3.fromRGB(24,24,33)
-keyFrame.BorderSizePixel=0
+local discord = Instance.new("TextButton")
+discord.Size = UDim2.fromOffset(210, 42)
+discord.Position = UDim2.fromOffset(25, 160)
+discord.BackgroundColor3 = Color3.fromRGB(88, 101, 242)
+discord.Text = "Join Discord"
+discord.TextColor3 = Color3.fromRGB(255, 255, 255)
+discord.TextSize = 16
+discord.Font = Enum.Font.GothamBold
+discord.AutoButtonColor = false
+discord.Parent = main
 
-Instance.new("UICorner",keyFrame).CornerRadius=UDim.new(0,10)
+local discordCorner = Instance.new("UICorner")
+discordCorner.CornerRadius = UDim.new(0, 9)
+discordCorner.Parent = discord
 
-local kt=Instance.new("TextLabel",keyFrame)
-kt.Size=UDim2.new(1,-30,0,40)
-kt.Position=UDim2.fromOffset(15,18)
-kt.BackgroundTransparency=1
-kt.Text="Rivo Hub Key System"
-kt.Font=Enum.Font.GothamBold
-kt.TextSize=19
-kt.TextColor3=Color3.new(1,1,1)
+local keyBox = Instance.new("TextBox")
+keyBox.Size = UDim2.fromOffset(210, 42)
+keyBox.Position = UDim2.fromOffset(25, 215)
+keyBox.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+keyBox.PlaceholderText = "Enter key..."
+keyBox.PlaceholderColor3 = Color3.fromRGB(120, 120, 135)
+keyBox.Text = ""
+keyBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+keyBox.TextSize = 15
+keyBox.Font = Enum.Font.Gotham
+keyBox.ClearTextOnFocus = false
+keyBox.Parent = main
 
-local ki=Instance.new("TextLabel",keyFrame)
-ki.Size=UDim2.new(1,-30,0,35)
-ki.Position=UDim2.fromOffset(15,58)
-ki.BackgroundTransparency=1
-ki.Text="Join Discord and enter your key"
-ki.Font=Enum.Font.Gotham
-ki.TextSize=12
-ki.TextColor3=Color3.fromRGB(155,155,170)
+local keyCorner = Instance.new("UICorner")
+keyCorner.CornerRadius = UDim.new(0, 9)
+keyCorner.Parent = keyBox
 
-local box=Instance.new("TextBox",keyFrame)
-box.Size=UDim2.new(1,-30,0,42)
-box.Position=UDim2.fromOffset(15,100)
-box.BackgroundColor3=Color3.fromRGB(13,13,18)
-box.BorderSizePixel=0
-box.PlaceholderText="Enter key"
-box.Text=""
-box.Font=Enum.Font.Gotham
-box.TextSize=14
-box.TextColor3=Color3.new(1,1,1)
-box.PlaceholderColor3=Color3.fromRGB(100,100,110)
+local keyStroke = Instance.new("UIStroke")
+keyStroke.Color = Color3.fromRGB(65, 65, 80)
+keyStroke.Parent = keyBox
 
-Instance.new("UICorner",box).CornerRadius=UDim.new(0,7)
+local check = Instance.new("TextButton")
+check.Size = UDim2.fromOffset(210, 42)
+check.Position = UDim2.fromOffset(260, 215)
+check.BackgroundColor3 = Color3.fromRGB(55, 190, 105)
+check.Text = "Unlock Rivo Hub"
+check.TextColor3 = Color3.fromRGB(255, 255, 255)
+check.TextSize = 15
+check.Font = Enum.Font.GothamBold
+check.AutoButtonColor = false
+check.Parent = main
 
-local verify=Instance.new("TextButton",keyFrame)
-verify.Size=UDim2.fromOffset(180,40)
-verify.Position=UDim2.fromOffset(15,155)
-verify.BackgroundColor3=Color3.fromRGB(70,110,255)
-verify.BorderSizePixel=0
-verify.Text="Verify Key"
-verify.Font=Enum.Font.GothamBold
-verify.TextSize=13
-verify.TextColor3=Color3.new(1,1,1)
+local checkCorner = Instance.new("UICorner")
+checkCorner.CornerRadius = UDim.new(0, 9)
+checkCorner.Parent = check
 
-Instance.new("UICorner",verify).CornerRadius=UDim.new(0,7)
+local status = Instance.new("TextLabel")
+status.Size = UDim2.new(1, -50, 0, 25)
+status.Position = UDim2.fromOffset(25, 270)
+status.BackgroundTransparency = 1
+status.Text = "Status: Waiting for key"
+status.TextColor3 = Color3.fromRGB(150, 150, 165)
+status.TextSize = 13
+status.Font = Enum.Font.Gotham
+status.TextXAlignment = Enum.TextXAlignment.Left
+status.Parent = main
 
-local discord=Instance.new("TextButton",keyFrame)
-discord.Size=UDim2.fromOffset(180,40)
-discord.Position=UDim2.fromOffset(215,155)
-discord.BackgroundColor3=Color3.fromRGB(55,55,70)
-discord.BorderSizePixel=0
-discord.Text="Join Discord"
-discord.Font=Enum.Font.GothamBold
-discord.TextSize=13
-discord.TextColor3=Color3.new(1,1,1)
+local function hover(button, normal, hoverColor)
+	button.MouseEnter:Connect(function()
+		TweenService:Create(button, TweenInfo.new(0.15), {
+			BackgroundColor3 = hoverColor
+		}):Play()
+	end)
 
-Instance.new("UICorner",discord).CornerRadius=UDim.new(0,7)
-
-local status=Instance.new("TextLabel",keyFrame)
-status.Size=UDim2.new(1,-30,0,30)
-status.Position=UDim2.fromOffset(15,202)
-status.BackgroundTransparency=1
-status.Text=""
-status.Font=Enum.Font.Gotham
-status.TextSize=12
-
-local sidebar=Instance.new("Frame",main)
-sidebar.Size=UDim2.fromOffset(155,360)
-sidebar.Position=UDim2.fromOffset(10,68)
-sidebar.BackgroundColor3=Color3.fromRGB(22,22,29)
-sidebar.BorderSizePixel=0
-sidebar.Visible=false
-
-Instance.new("UICorner",sidebar).CornerRadius=UDim.new(0,9)
-
-local list=Instance.new("UIListLayout",sidebar)
-list.Padding=UDim.new(0,6)
-list.HorizontalAlignment=Enum.HorizontalAlignment.Center
-
-local pad=Instance.new("UIPadding",sidebar)
-pad.PaddingTop=UDim.new(0,10)
-
-local content=Instance.new("Frame",main)
-content.Size=UDim2.new(1,-180,1,-78)
-content.Position=UDim2.fromOffset(170,68)
-content.BackgroundColor3=Color3.fromRGB(22,22,29)
-content.BorderSizePixel=0
-content.Visible=false
-
-Instance.new("UICorner",content).CornerRadius=UDim.new(0,9)
-
-local pages={}
-
-local function page(name)
-    local p=Instance.new("ScrollingFrame",content)
-    p.Name=name
-    p.Size=UDim2.new(1,-20,1,-20)
-    p.Position=UDim2.fromOffset(10,10)
-    p.BackgroundTransparency=1
-    p.BorderSizePixel=0
-    p.ScrollBarThickness=3
-    p.Visible=false
-    p.CanvasSize=UDim2.new()
-    local l=Instance.new("UIListLayout",p)
-    l.Padding=UDim.new(0,8)
-    local q=Instance.new("UIPadding",p)
-    q.PaddingTop=UDim.new(0,5)
-    q.PaddingLeft=UDim.new(0,5)
-    q.PaddingRight=UDim.new(0,5)
-    pages[name]=p
-    return p
+	button.MouseLeave:Connect(function()
+		TweenService:Create(button, TweenInfo.new(0.15), {
+			BackgroundColor3 = normal
+		}):Play()
+	end)
 end
 
-local function tab(name,p)
-    local b=Instance.new("TextButton",sidebar)
-    b.Size=UDim2.fromOffset(135,38)
-    b.BackgroundColor3=Color3.fromRGB(31,31,42)
-    b.BorderSizePixel=0
-    b.Text=name
-    b.Font=Enum.Font.GothamMedium
-    b.TextSize=12
-    b.TextColor3=Color3.fromRGB(220,220,230)
-    Instance.new("UICorner",b).CornerRadius=UDim.new(0,7)
-    b.MouseButton1Click:Connect(function()
-        for _,v in pairs(pages) do v.Visible=false end
-        p.Visible=true
-    end)
-end
-
-local function heading(p,t)
-    local x=Instance.new("TextLabel",p)
-    x.Size=UDim2.new(1,-10,0,32)
-    x.BackgroundTransparency=1
-    x.Text=t
-    x.Font=Enum.Font.GothamBold
-    x.TextSize=16
-    x.TextColor3=Color3.new(1,1,1)
-    x.TextXAlignment=Enum.TextXAlignment.Left
-end
-
-local function toggle(p,t,callback)
-    local b=Instance.new("TextButton",p)
-    b.Size=UDim2.new(1,-10,0,42)
-    b.BackgroundColor3=Color3.fromRGB(30,30,40)
-    b.BorderSizePixel=0
-    b.Text=""
-    Instance.new("UICorner",b).CornerRadius=UDim.new(0,7)
-
-    local l=Instance.new("TextLabel",b)
-    l.Size=UDim2.new(1,-75,1,0)
-    l.Position=UDim2.fromOffset(13,0)
-    l.BackgroundTransparency=1
-    l.Text=t
-    l.Font=Enum.Font.GothamMedium
-    l.TextSize=13
-    l.TextColor3=Color3.fromRGB(225,225,230)
-    l.TextXAlignment=Enum.TextXAlignment.Left
-
-    local s=Instance.new("TextLabel",b)
-    s.Size=UDim2.fromOffset(45,24)
-    s.Position=UDim2.new(1,-58,.5,-12)
-    s.BackgroundColor3=Color3.fromRGB(55,55,65)
-    s.BorderSizePixel=0
-    s.Text="OFF"
-    s.Font=Enum.Font.GothamBold
-    s.TextSize=10
-    s.TextColor3=Color3.fromRGB(180,180,190)
-    Instance.new("UICorner",s).CornerRadius=UDim.new(0,12)
-
-    local state=false
-
-    b.MouseButton1Click:Connect(function()
-        state=not state
-        s.Text=state and "ON" or "OFF"
-        s.BackgroundColor3=state and Color3.fromRGB(70,110,255) or Color3.fromRGB(55,55,65)
-        callback(state)
-    end)
-end
-
-local function button(p,t,callback)
-    local b=Instance.new("TextButton",p)
-    b.Size=UDim2.new(1,-10,0,42)
-    b.BackgroundColor3=Color3.fromRGB(30,30,40)
-    b.BorderSizePixel=0
-    b.Text=t
-    b.Font=Enum.Font.GothamMedium
-    b.TextSize=13
-    b.TextColor3=Color3.fromRGB(225,225,230)
-    Instance.new("UICorner",b).CornerRadius=UDim.new(0,7)
-    b.MouseButton1Click:Connect(callback)
-end
-
-local home=page("Home")
-local esp=page("ESP")
-local movement=page("Movement")
-local tracker=page("Tracker")
-local combat=page("Combat")
-local settings=page("Settings")
-
-tab("Home",home)
-tab("ESP",esp)
-tab("Movement",movement)
-tab("Tracker",tracker)
-tab("Combat",combat)
-tab("Settings",settings)
-
-heading(home,"Rivo Hub")
-button(home,"Player Information",function()
-    print("Player:",LP.Name)
-end)
-button(home,"Refresh",function()
-    print("Rivo Hub refreshed")
-end)
-toggle(home,"Notifications",function(v)
-    print("Notifications:",v)
-end)
-
-heading(esp,"ESP")
-toggle(esp,"Player ESP",function(v)
-    print("Player ESP:",v)
-end)
-toggle(esp,"Brainrot / Item ESP",function(v)
-    print("Item ESP:",v)
-end)
-toggle(esp,"Rare Item Tracker",function(v)
-    print("Rare Item Tracker:",v)
-end)
-toggle(esp,"Player Distance",function(v)
-    print("Player Distance:",v)
-end)
-toggle(esp,"Enemy ESP",function(v)
-    print("Enemy ESP:",v)
-end)
-toggle(esp,"Base Information",function(v)
-    print("Base Information:",v)
-end)
-
-heading(movement,"Movement")
-toggle(movement,"Custom WalkSpeed",function(v)
-    print("WalkSpeed:",v)
-end)
-toggle(movement,"Custom JumpPower",function(v)
-    print("JumpPower:",v)
-end)
-button(movement,"Teleport Menu",function()
-    print("Teleport menu")
-end)
-
-heading(tracker,"Tracking")
-toggle(tracker,"Inventory Tracker",function(v)
-    print("Inventory Tracker:",v)
-end)
-toggle(tracker,"Player List",function(v)
-    print("Player List:",v)
-end)
-toggle(tracker,"Rare Brainrot Alerts",function(v)
-    print("Rare Alerts:",v)
-end)
-toggle(tracker,"Base Alerts",function(v)
-    print("Base Alerts:",v)
-end)
-
-heading(combat,"Combat Testing")
-toggle(combat,"Training Mode",function(v)
-    print("Training Mode:",v)
-end)
-toggle(combat,"Target Information",function(v)
-    print("Target Information:",v)
-end)
-toggle(combat,"Enemy Alerts",function(v)
-    print("Enemy Alerts:",v)
-end)
-
-heading(settings,"Settings")
-toggle(settings,"UI Notifications",function(v)
-    print("UI Notifications:",v)
-end)
-toggle(settings,"Performance Mode",function(v)
-    print("Performance Mode:",v)
-end)
-button(settings,"Reset UI",function()
-    for _,v in pairs(pages) do v.Visible=false end
-    home.Visible=true
-end)
-
-verify.MouseButton1Click:Connect(function()
-    if box.Text==KEY then
-        status.Text="Key verified successfully"
-        status.TextColor3=Color3.fromRGB(80,255,140)
-        task.wait(.4)
-        keyFrame.Visible=false
-        sidebar.Visible=true
-        content.Visible=true
-        home.Visible=true
-    else
-        status.Text="Invalid key"
-        status.TextColor3=Color3.fromRGB(255,80,90)
-    end
-end)
+hover(discord, Color3.fromRGB(88, 101, 242), Color3.fromRGB(105, 116, 255))
+hover(check, Color3.fromRGB(55, 190, 105), Color3.fromRGB(65, 210, 120))
 
 discord.MouseButton1Click:Connect(function()
-    print(DISCORD)
+	if setclipboard then
+		setclipboard(DISCORD)
+		status.Text = "Discord invite copied to clipboard."
+	else
+		status.Text = "Discord: " .. DISCORD
+	end
 end)
 
-local dragging=false
-local start
-local position
+check.MouseButton1Click:Connect(function()
+	if keyBox.Text == KEY then
+		status.Text = "Key verified! Rivo Hub unlocked."
+		status.TextColor3 = Color3.fromRGB(70, 220, 120)
 
-top.InputBegan:Connect(function(input)
-    if input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch then
-        dragging=true
-        start=input.Position
-        position=main.Position
-    end
+		TweenService:Create(main, TweenInfo.new(0.35, Enum.EasingStyle.Quad), {
+			Size = UDim2.fromOffset(520, 360)
+		}):Play()
+
+		task.wait(0.4)
+
+		info.Text = "Welcome to Rivo Hub!\nYour key has been accepted."
+
+		keyBox.Visible = false
+		check.Visible = false
+		discord.Visible = false
+
+		local continueButton = Instance.new("TextButton")
+		continueButton.Size = UDim2.fromOffset(300, 48)
+		continueButton.Position = UDim2.fromOffset(110, 220)
+		continueButton.BackgroundColor3 = Color3.fromRGB(80, 120, 255)
+		continueButton.Text = "Enter Rivo Hub"
+		continueButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+		continueButton.TextSize = 17
+		continueButton.Font = Enum.Font.GothamBold
+		continueButton.Parent = main
+
+		local c = Instance.new("UICorner")
+		c.CornerRadius = UDim.new(0, 10)
+		c.Parent = continueButton
+
+		continueButton.MouseButton1Click:Connect(function()
+			info.Text = "Rivo Hub is ready."
+			status.Text = "Best of luck!"
+			continueButton.Text = "Rivo Hub Loaded"
+			continueButton.BackgroundColor3 = Color3.fromRGB(55, 190, 105)
+		end)
+	else
+		status.Text = "Invalid key. Please get the key from Discord."
+		status.TextColor3 = Color3.fromRGB(255, 90, 90)
+
+		TweenService:Create(keyBox, TweenInfo.new(0.08), {
+			Position = UDim2.fromOffset(35, 215)
+		}):Play()
+
+		task.wait(0.08)
+
+		TweenService:Create(keyBox, TweenInfo.new(0.08), {
+			Position = UDim2.fromOffset(25, 215)
+		}):Play()
+	end
+end)
+
+local dragging = false
+local dragStart
+local startPos
+
+title.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		dragStart = input.Position
+		startPos = main.Position
+	end
 end)
 
 UIS.InputChanged:Connect(function(input)
-    if dragging and (input.UserInputType==Enum.UserInputType.MouseMovement or input.UserInputType==Enum.UserInputType.Touch) then
-        local delta=input.Position-start
-        main.Position=UDim2.new(
-            position.X.Scale,
-            position.X.Offset+delta.X,
-            position.Y.Scale,
-            position.Y.Offset+delta.Y
-        )
-    end
+	if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+		local delta = input.Position - dragStart
+		main.Position = UDim2.new(
+			startPos.X.Scale,
+			startPos.X.Offset + delta.X,
+			startPos.Y.Scale,
+			startPos.Y.Offset + delta.Y
+		)
+	end
 end)
 
 UIS.InputEnded:Connect(function(input)
-    if input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch then
-        dragging=false
-    end
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = false
+	end
 end)
